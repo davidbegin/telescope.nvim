@@ -1,5 +1,6 @@
 local actions = require('telescope.actions')
 local action_state = require('telescope.actions.state')
+local action_set = require('telescope.actions.set')
 local finders = require('telescope.finders')
 local make_entry = require('telescope.make_entry')
 local pickers = require('telescope.pickers')
@@ -252,7 +253,7 @@ files.current_buffer_fuzzy_find = function(opts)
     },
     sorter = conf.generic_sorter(opts),
     attach_mappings = function()
-      actions._goto_file_selection:enhance {
+      action_set.edit:enhance {
         post = function()
           local selection = action_state.get_selected_entry()
           vim.api.nvim_win_set_cursor(0, {selection.lnum, 0})
@@ -288,7 +289,7 @@ files.tags = function(opts)
     previewer = previewers.ctags.new(opts),
     sorter = conf.generic_sorter(opts),
     attach_mappings = function()
-      actions._goto_file_selection:enhance {
+      action_set.edit:enhance {
         post = function()
           local selection = action_set.get_selected_entry()
 
